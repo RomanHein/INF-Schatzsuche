@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{42bfea97-1b22-4058-80e2-375baf6dba8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{20c632ef-8181-4995-94fd-7ab09e166171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{3fde4f05-9900-4c4a-adba-2ff5b76d6064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{086dfb1f-851f-4a4c-8ff1-edf7a4207767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\controllers">
+      <UniqueIdentifier>{2643ff2b-5e78-413d-8a26-2d94c746c143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\controllers">
+      <UniqueIdentifier>{fd87e0f4-6778-4d11-86b1-58fe534f6670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\data">
+      <UniqueIdentifier>{87a0db95-9603-45f8-bb65-e27aa9cc5c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\data">
+      <UniqueIdentifier>{f970e8a8-482b-4668-83fc-e89cc45f946d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\utility">
+      <UniqueIdentifier>{cb4944dc-3a59-4b0e-a61d-014cb5baeee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\utility">
+      <UniqueIdentifier>{88fa6e66-afef-433a-ad03-9b78e45edd66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\data\pod">
+      <UniqueIdentifier>{e383c6fa-a3b1-4a3c-9800-2f6b1f43529f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\data\other">
+      <UniqueIdentifier>{d10bbc9a-8fa9-4e47-84f6-4eed5e2433fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\data\other">
+      <UniqueIdentifier>{ce440543-06bc-460f-a804-65036822086c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\entities">
+      <UniqueIdentifier>{c924f953-d7e6-44b7-bb84-752b16d398d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\entities">
+      <UniqueIdentifier>{d9e45ab3-44e1-4f1d-8052-7f5fcd0f6fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\services">
+      <UniqueIdentifier>{e4450508-647a-4c7e-9ead-98379d455a5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\services">
+      <UniqueIdentifier>{913c7fa2-513d-4beb-a56f-851feafb4c6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\enums">
+      <UniqueIdentifier>{47967c9b-5534-42b3-a428-54d79db65c74}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game_controller.cpp">
+      <Filter>Source Files\core\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="map_controller.cpp">
+      <Filter>Source Files\core\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\game\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ui_utils.cpp">
+      <Filter>Source Files\core\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="vector_2.cpp">
+      <Filter>Source Files\core\data\other</Filter>
+    </ClCompile>
+    <ClCompile Include="math_utils.cpp">
+      <Filter>Source Files\core\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="player_input_service.cpp">
+      <Filter>Source Files\core\services</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game_controller.h">
+      <Filter>Header Files\core\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="map_controller.h">
+      <Filter>Header Files\core\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_utils.h">
+      <Filter>Header Files\core\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_2.h">
+      <Filter>Header Files\core\data\other</Filter>
+    </ClInclude>
+    <ClInclude Include="math_utils.h">
+      <Filter>Header Files\core\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files\game\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="item_type.h">
+      <Filter>Header Files\core\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="player_input_service.h">
+      <Filter>Header Files\core\services</Filter>
+    </ClInclude>
+    <ClInclude Include="command_type.h">
+      <Filter>Header Files\core\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="map_event.h">
+      <Filter>Header Files\core\data\other</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
