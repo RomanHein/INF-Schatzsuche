@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "item_type.h"
 #include "vector_2.h"
 
 namespace game
@@ -14,14 +13,15 @@ namespace game
 			std::string name_;
 			int energy_, maxEnergy_;
 			core::data::Vector2 position_;
-			std::vector<core::enums::ItemType> inventory_;
+			std::vector<std::string> inventory_;
+			int inventoryCapacity_;
 
 		public:
 			//
 			// === Constructor ===
 			//
 
-			explicit Player(const std::string& name, int energy, int maxEnergy);
+			explicit Player(const std::string& name, int energy, int maxEnergy, int inventoryCapacity);
 
 			//
 			// === Public Methods ===
@@ -37,7 +37,10 @@ namespace game
 			void move(const core::data::Vector2& delta);
 
 			// Adds the given item into the player's inventory.
-			void addItem(core::enums::ItemType item);
+			void addItem(std::string item);
+
+			// Increases the player's inventory capacity.
+			void expandInventory(int slots);
 
 			//
 			// === Predicate Methods ===
@@ -47,7 +50,10 @@ namespace game
 			bool isExhausted() const;
 
 			// Returns true if player has an item with the given item name in his inventory.
-			bool hasItem(core::enums::ItemType item);
+			bool hasItem(std::string item) const;
+
+			// Returns true if the player's inventory size is equal to his inventory capacity.
+			bool hasFullInventory() const;
 
 			// === Getters ===
 

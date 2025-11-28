@@ -43,15 +43,6 @@
     <Filter Include="Source Files\core\utility">
       <UniqueIdentifier>{88fa6e66-afef-433a-ad03-9b78e45edd66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\core\data\pod">
-      <UniqueIdentifier>{e383c6fa-a3b1-4a3c-9800-2f6b1f43529f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\core\data\other">
-      <UniqueIdentifier>{d10bbc9a-8fa9-4e47-84f6-4eed5e2433fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\core\data\other">
-      <UniqueIdentifier>{ce440543-06bc-460f-a804-65036822086c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\game\entities">
       <UniqueIdentifier>{c924f953-d7e6-44b7-bb84-752b16d398d5}</UniqueIdentifier>
     </Filter>
@@ -66,6 +57,12 @@
     </Filter>
     <Filter Include="Header Files\core\enums">
       <UniqueIdentifier>{47967c9b-5534-42b3-a428-54d79db65c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\components">
+      <UniqueIdentifier>{1325973e-b6f2-433b-ac4e-ac3d8e03592f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core\components">
+      <UniqueIdentifier>{b424b9f4-89cb-42fd-a51f-f6eec8a0f599}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,14 +81,17 @@
     <ClCompile Include="ui_utils.cpp">
       <Filter>Source Files\core\utility</Filter>
     </ClCompile>
-    <ClCompile Include="vector_2.cpp">
-      <Filter>Source Files\core\data\other</Filter>
-    </ClCompile>
     <ClCompile Include="math_utils.cpp">
       <Filter>Source Files\core\utility</Filter>
     </ClCompile>
     <ClCompile Include="player_input_service.cpp">
       <Filter>Source Files\core\services</Filter>
+    </ClCompile>
+    <ClCompile Include="event_manager.cpp">
+      <Filter>Source Files\core\components</Filter>
+    </ClCompile>
+    <ClCompile Include="vector_2.cpp">
+      <Filter>Source Files\core\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,17 +104,11 @@
     <ClInclude Include="ui_utils.h">
       <Filter>Header Files\core\utility</Filter>
     </ClInclude>
-    <ClInclude Include="vector_2.h">
-      <Filter>Header Files\core\data\other</Filter>
-    </ClInclude>
     <ClInclude Include="math_utils.h">
       <Filter>Header Files\core\utility</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>Header Files\game\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="item_type.h">
-      <Filter>Header Files\core\enums</Filter>
     </ClInclude>
     <ClInclude Include="player_input_service.h">
       <Filter>Header Files\core\services</Filter>
@@ -122,8 +116,14 @@
     <ClInclude Include="command_type.h">
       <Filter>Header Files\core\enums</Filter>
     </ClInclude>
-    <ClInclude Include="map_event.h">
-      <Filter>Header Files\core\data\other</Filter>
+    <ClInclude Include="event_manager.h">
+      <Filter>Header Files\core\components</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_2.h">
+      <Filter>Header Files\core\data</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>Header Files\core\data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

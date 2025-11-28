@@ -1,8 +1,8 @@
 #pragma once
+#include <map>
 #include <vector>
-#include <memory>
 #include "vector_2.h"
-#include "map_event.h"
+#include "event_manager.h"
 
 namespace game
 {
@@ -20,24 +20,32 @@ namespace core
 		{
 		private:
 			game::entities::Player& player_;
-			std::vector<std::vector<std::unique_ptr<core::data::MapEvent>>> mapEvents_;
-			core::data::Vector2 mapSize_;
+			std::map<core::data::Vector2, int> mapEventIds_;
+			core::components::EventManager eventManager_;
+			std::vector<std::vector<char>> map_;
+
+			// Returns a random, empty, point on the map.
+			core::data::Vector2 getRandomPoint();
+
+			// Initializes all map events.
+			void initMapEvents();
 
 		public:
+			//
 			// === Constructor ===
+			//
 
 			explicit Map(game::entities::Player& player, const core::data::Vector2& mapSize);
 
+			//
 			// === Public Methods ===
+			//
 
 			// Draws the current map to the console.
 			void drawMap();
 
 			// abc.
 			void handleMapEvent();
-
-			// Asks the player to make a move input.
-			core::data::Vector2 askPlayerMove();
 		};
 	}
 }

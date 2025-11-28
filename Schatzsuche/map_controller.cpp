@@ -1,6 +1,5 @@
 #include "map_controller.h"
 #include <iostream>
-#include "item_type.h"
 #include "math_utils.h"
 #include "player.h"
 
@@ -8,59 +7,81 @@ namespace core
 {
 	namespace controllers
 	{
+		//
+		// === Constructor ===
+		//
+
 		Map::Map(game::entities::Player& player, const core::data::Vector2& mapSize) :
 			player_(player),
-			mapSize_(mapSize)
+			map_(mapSize.y, std::vector<char>(mapSize.x, '.')),
+			eventManager_(player)
 		{ 
-			// Fill mapEvents with nullptrs.
-			this->mapEvents_.resize(mapSize_.y);
-			for (auto& row : this->mapEvents_) { row.resize(mapSize.x); }
+			this->initMapEvents();
+		}
 
-			// Overwrite mapEvents with events.
-			for (int i = 0; i < 2; i++)
+		//
+		// === Private Methods ===
+		//
+
+		core::data::Vector2 Map::getRandomPoint()
+		{
+			while (true)
 			{
-				int x, y;
+				core::data::Vector2 point = core::utils::math::randomPoint(0, this->map_[0].size() - 1, 0, this->map_.size() - 1);
 
-				while (true) 
+				if (this->mapEventIds_.find(point) == this->mapEventIds_.end())
 				{
-					x = core::utils::math::randomInt(0, mapSize.x - 1);
-					y = core::utils::math::randomInt(0, mapSize.y - 1);
-
-					if (this->mapEvents_[y][x] == nullptr)
-					{
-						break;
-					}
+					return point;
 				}
-
-				this->mapEvents_[y][x] = std::make_unique<core::data::MapEvent>(
-					core::data::MapEvent{ 'K', [&player]() {
-						player.addItem(core::enums::ItemType::Backpack);
-						std::cout << "Item gefunden!";
-					} }
-				);
 			}
 		}
+
+		void Map::initMapEvents()
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				int eventId = this->eventManager_.createConditionalEvent(
+					[](game::entities::Player& player) -> bool {
+						if (player.hasFullInventory())
+						{
+							std::cout << "Dein Inventar ist voll!\n";
+							return false;
+						}
+
+						return true;
+					},
+					[](game::entities::Player& player) -> void {
+						player.addItem("Schaufel");
+						std::cout << "Du hast eine Schaufel gefunden!\n";
+					}
+				);
+
+				auto point = this->getRandomPoint();
+
+				this->mapEventIds_[point] = eventId;
+				this->map_[point.y][point.x] = 'S';
+			}
+		}
+
+		//
+		// === Public Methods ===
+		//
 
 		// Draw every character inside map_, if x y is player position, draw player instead of tile.
 		void Map::drawMap()
 		{
-			for (int y = 0; y < this->mapSize_.y; y++)
+			for (int y = 0; y < map_.size(); y++)
 			{
-				for (int x = 0; x < this->mapSize_.x; x++)
+				for (int x = 0; x < map_[y].size(); x++)
 				{
-					core::data::Vector2 currentPosition = { x, y };
-
-					if (this->player_.getPosition() == currentPosition)
+					// Player has highest draw priority.
+					if (this->player_.getPosition() == core::data::Vector2{ x, y })
 					{
 						std::cout << "O ";
 					}
-					else if (this->mapEvents_[y][x] != nullptr)
-					{
-						std::cout << this->mapEvents_[y][x]->tile << " ";
-					}
 					else
 					{
-						std::cout << ". ";
+						std::cout << this->map_[y][x] << " ";
 					}
 				}
 
@@ -71,16 +92,20 @@ namespace core
 		// Check what tile the player is standing on and determine an event.
 		void Map::handleMapEvent() 
 		{
-			std::unique_ptr<core::data::MapEvent>& mapEvent = mapEvents_[this->player_.getPosition().y][this->player_.getPosition().x];
-			
-			if (!mapEvent)
+			auto playerPosition = this->player_.getPosition();
+			auto it = this->mapEventIds_.find(playerPosition);
+
+			// Player not standing on an event.
+			if (it == this->mapEventIds_.end())
 			{
 				return;
 			}
-			else
+
+			int eventId = it->second;
+
+			if (this->eventManager_.trigger(eventId))
 			{
-				mapEvent->trigger();
-				mapEvent = nullptr;
+				this->map_[playerPosition.y][playerPosition.x] = '.';
 			}
 		}
 	}

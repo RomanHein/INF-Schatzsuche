@@ -10,7 +10,8 @@ namespace core
 
 			Vector2 operator+(const Vector2& other) const;
 			Vector2& operator+=(const Vector2& other);
-			bool operator==(const Vector2& other) const;
+			bool operator==(const Vector2& other) const noexcept;
+			bool operator<(const Vector2& other) const noexcept;
 		};
 	}
 }

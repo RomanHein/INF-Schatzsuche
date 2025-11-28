@@ -1,5 +1,6 @@
 #include "game_controller.h"
 #include <cstdlib>
+#include <iostream>
 #include <locale>
 #include <ctime>
 #include "command_type.h"
@@ -12,14 +13,14 @@ namespace core
 	namespace controllers
 	{
 		Game::Game() :
-			player_(game::entities::Player("Spieler", 9, 12)),
+			player_(game::entities::Player("Spieler", 9, 12, 3)),
 			mapController_(core::controllers::Map(this->player_, core::data::Vector2{ 10, 10 }))
 		{ }
 
 		void Game::init()
 		{
 			std::locale::global(std::locale("de_DE"));
-			std::srand(static_cast<unsigned int>(std::time(nullptr)));
+			std::srand(static_cast<unsigned int>(std::time(0)));
 		}
 
 		void Game::start()

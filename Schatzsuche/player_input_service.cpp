@@ -72,7 +72,7 @@ namespace core
 				break;
 
 			case core::enums::CommandType::Dig:
-				if (!player.hasItem(core::enums::ItemType::FirstMapPart) || !player.hasItem(core::enums::ItemType::SecondMapPart))
+				if (!player.hasItem("Kartenteil-1") || !player.hasItem("Kartenteil-2"))
 				{
 					std::cout << "Du kannst nicht ohne einer vollständigen Karte nach dem Schatz graben.\n";
 					core::utils::ui::wait();
