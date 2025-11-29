@@ -40,22 +40,103 @@ namespace core
 
 		void Map::initMapEvents()
 		{
-			for (int i = 0; i < 5; i++)
+			core::data::Vector2 point;
+			int eventId;
+
+			// Berries.
+			for (int i = 0; i < 7; i++)
 			{
-				int eventId = this->eventManager_.createEvent(
+				eventId = this->eventManager_.createEvent(
 					[](game::entities::Player& player) -> void {
-						player.increaseEnergy(3);
+						player.increaseEnergy(5);
 						std::cout << "Du hast eine Beere gefunden (+3 Energie)!\n";
 					}
 				);
 
-				auto point = this->getRandomPoint();
+				point = this->getRandomPoint();
 
 				this->mapEventIds_[point] = eventId;
 				this->map_[point.y][point.x] = 'B';
 			}
 
+			// Shovel.
+			eventId = this->eventManager_.createConditionalEvent(
+				[](game::entities::Player& player) -> bool {
+					if (player.hasFullInventory())
+					{
+						std::cout << "Dein Inventar ist voll! Such nach einem Rucksack.\n";
+						return false;
+					}
 
+					return true;
+				},
+				[](game::entities::Player& player) -> void {
+					player.addItem("Schaufel");
+					std::cout << "Du hast eine Schaufel gefunden!\n";
+				}
+			);
+
+			point = this->getRandomPoint();
+
+			this->mapEventIds_[point] = eventId;
+			this->map_[point.y][point.x] = 'S';
+
+			// First map part.
+			eventId = this->eventManager_.createConditionalEvent(
+				[](game::entities::Player& player) -> bool {
+					if (player.hasFullInventory())
+					{
+						std::cout << "Dein Inventar ist voll! Such nach einem Rucksack.\n";
+						return false;
+					}
+
+					return true;
+				},
+				[](game::entities::Player& player) -> void {
+					player.addItem("Kartenteil-1");
+					std::cout << "Du hast ein Kartenteil gefunden!\n";
+				}
+			);
+
+			point = this->getRandomPoint();
+
+			this->mapEventIds_[point] = eventId;
+			this->map_[point.y][point.x] = 'K';
+
+			// Second map part.
+			eventId = this->eventManager_.createConditionalEvent(
+				[](game::entities::Player& player) -> bool {
+					if (player.hasFullInventory())
+					{
+						std::cout << "Dein Inventar ist voll! Such nach einem Rucksack.\n";
+						return false;
+					}
+
+					return true;
+				},
+				[](game::entities::Player& player) -> void {
+					player.addItem("Kartenteil-2");
+					std::cout << "Du hast ein Kartenteil gefunden!\n";
+				}
+			);
+
+			point = this->getRandomPoint();
+
+			this->mapEventIds_[point] = eventId;
+			this->map_[point.y][point.x] = 'K';
+
+			// Backpack.
+			eventId = this->eventManager_.createEvent(
+				[](game::entities::Player& player) -> void {
+					player.expandInventory(1);
+					std::cout << "Du hast einen Rucksack gefunden!\n";
+				}
+			);
+
+			point = this->getRandomPoint();
+
+			this->mapEventIds_[point] = eventId;
+			this->map_[point.y][point.x] = 'R';
 		}
 
 		//

@@ -16,7 +16,6 @@ namespace core
 			{
 				std::cout << "Drücke um fortzufahren...";
 				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}
 		}
 	}

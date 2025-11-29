@@ -29,9 +29,6 @@ namespace core
 			// === Public Methods ===
 			//
 
-			// Initializes the game.
-			void init();
-
 			// Starts the game.
 			void start();
 

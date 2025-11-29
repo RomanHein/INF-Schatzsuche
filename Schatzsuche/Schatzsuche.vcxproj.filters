@@ -93,7 +93,7 @@
     <ClCompile Include="vector_2.cpp">
       <Filter>Source Files\core\data</Filter>
     </ClCompile>
-    <ClCompile Include="context_ui_service.cpp">
+    <ClCompile Include="game_ui_service.cpp">
       <Filter>Source Files\core\services</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,7 +131,7 @@
     <ClInclude Include="game_context.h">
       <Filter>Header Files\core\data</Filter>
     </ClInclude>
-    <ClInclude Include="context_ui_service.h">
+    <ClInclude Include="game_ui_service.h">
       <Filter>Header Files\core\services</Filter>
     </ClInclude>
   </ItemGroup>

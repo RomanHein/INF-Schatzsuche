@@ -1,3 +1,7 @@
+// Player
+//
+// The entity which represents the player.
+
 #pragma once
 #include <string>
 #include <vector>

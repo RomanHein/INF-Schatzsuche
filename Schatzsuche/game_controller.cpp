@@ -1,29 +1,20 @@
 #include "game_controller.h"
-#include <cstdlib>
 #include <iostream>
-#include <locale>
-#include <ctime>
 #include "command_type.h"
 #include "ui_utils.h"
 #include "vector_2.h"
 #include "game_context.h"
 #include "player_input_service.h"
-#include "context_ui_service.h"
+#include "game_ui_service.h"
 
 namespace core
 {
 	namespace controllers
 	{
 		Game::Game() :
-			player_(game::entities::Player("Spieler", 9, 12, 3)),
+			player_(game::entities::Player("Spieler", 10, 12, 2)),
 			mapController_(core::controllers::Map(this->player_, core::data::Vector2{ 10, 10 }))
 		{ }
-
-		void Game::init()
-		{
-			std::locale::global(std::locale("de_DE"));
-			std::srand(static_cast<unsigned int>(std::time(0)));
-		}
 
 		void Game::start()
 		{
@@ -37,7 +28,10 @@ namespace core
 				this->mapController_.drawMap();
 				this->mapController_.handleMapEvent();
 
-				core::services::context_ui::showPlayerStatus(this->player_);
+				core::services::game_ui::printMapSeperator(this->mapController_.getMapSize().x);
+
+				core::services::game_ui::showPlayerStatus(this->player_);
+				core::services::game_ui::showPlayerInventory(this->player_);
 
 				core::enums::CommandType playerCommand = core::services::player_input::askPlayerInput();
 				core::services::player_input::handlePlayerInput(playerCommand, core::data::GameContext{
@@ -47,8 +41,15 @@ namespace core
 					this->playerFoundTreasure_
 				});
 
-				if (this->playerFoundTreasure_ || this->player_.isExhausted())
+				if (this->playerFoundTreasure_)
 				{
+					core::services::game_ui::showVictoryScreen();
+					break;
+				}
+
+				if (this->player_.isExhausted())
+				{
+					core::services::game_ui::showDeathScreen();
 					break;
 				}
 
