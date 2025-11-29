@@ -21,6 +21,7 @@ namespace core
 			bool operator==(const Vector2& other) const noexcept;
 			bool operator!=(const Vector2& other) const noexcept;
 			bool operator<(const Vector2& other) const noexcept;
+			bool operator>(const Vector2& other) const noexcept;
 		};
 	}
 }

@@ -11,40 +11,17 @@ namespace core
 		// === Constructor ===
 		//
 
-		Map::Map(game::entities::Player& player, const core::data::Vector2& mapSize) :
+		Map::Map(game::entities::Player& player, const core::data::Vector2& mapSize, int totalBerries) :
 			player_(player),
 			map_(mapSize.y, std::vector<char>(mapSize.x, '.')),
 			treasurePosition_(core::utils::math::randomPoint(0, mapSize.x - 1, 0, mapSize.y - 1)),
 			eventManager_(player)
 		{ 
-			this->initMapEvents();
-		}
-
-		//
-		// === Private Methods ===
-		//
-
-		core::data::Vector2 Map::getRandomPoint()
-		{
-			while (true)
-			{
-				core::data::Vector2 point = core::utils::math::randomPoint(0, static_cast<int>(this->map_[0].size()) - 1, 0, static_cast<int>(this->map_.size() - 1));
-
-				// Check if generated point is already in use.
-				if (this->mapEventIds_.find(point) == this->mapEventIds_.end())
-				{
-					return point;
-				}
-			}
-		}
-
-		void Map::initMapEvents()
-		{
 			core::data::Vector2 point;
 			int eventId;
 
 			// Berries.
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < totalBerries; i++)
 			{
 				eventId = this->eventManager_.createEvent(
 					[](game::entities::Player& player) -> void {
@@ -137,6 +114,24 @@ namespace core
 
 			this->mapEventIds_[point] = eventId;
 			this->map_[point.y][point.x] = 'R';
+		}
+
+		//
+		// === Private Methods ===
+		//
+
+		core::data::Vector2 Map::getRandomPoint()
+		{
+			while (true)
+			{
+				core::data::Vector2 point = core::utils::math::randomPoint(0, static_cast<int>(this->map_[0].size()) - 1, 0, static_cast<int>(this->map_.size() - 1));
+
+				// Check if generated point is already in use.
+				if (this->mapEventIds_.find(point) == this->mapEventIds_.end())
+				{
+					return point;
+				}
+			}
 		}
 
 		//

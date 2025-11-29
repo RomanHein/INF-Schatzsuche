@@ -1,5 +1,5 @@
 // Player
-//
+// 
 // The entity which represents the player.
 
 #pragma once
@@ -65,6 +65,7 @@ namespace game
 
 			const core::data::Vector2& getPosition() const;
 			int getEnergy() const;
+			int getMaxEnergy() const;
 			const std::vector<std::string>& getInventory() const;
 		};
 	}

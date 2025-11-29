@@ -10,7 +10,7 @@ namespace core
 	{
 		void game_ui::showPlayerStatus(const game::entities::Player& player)
 		{
-			std::cout << "Energie: " << player.getEnergy() << "\n";
+			std::cout << "Energie: " << player.getEnergy() << "/" << player.getMaxEnergy() << "\n";
 		}
 
 		void game_ui::showPlayerInventory(const game::entities::Player& player)
@@ -30,7 +30,7 @@ namespace core
 		void game_ui::showDeathScreen()
 		{
 			std::cout << "Du hast deine gesamte Ausdauer verbraucht und bist durch\n";
-			std::cout << "Erschöpfung gestorben!\n";
+			std::cout << "deiner Erschöpfung gestorben!\n";
 		}
 
 		void game_ui::showVictoryScreen()

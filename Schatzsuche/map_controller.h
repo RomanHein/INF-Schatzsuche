@@ -38,15 +38,12 @@ namespace core
 			// Returns a random, empty, point on the map.
 			core::data::Vector2 getRandomPoint();
 
-			// Initializes all map events.
-			void initMapEvents();
-
 		public:
 			//
 			// === Constructor ===
 			//
 
-			explicit Map(game::entities::Player& player, const core::data::Vector2& mapSize);
+			explicit Map(game::entities::Player& player, const core::data::Vector2& mapSize, int totalBerries);
 
 			//
 			// === Public Methods ===

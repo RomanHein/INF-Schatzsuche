@@ -1,9 +1,9 @@
 #include "game_controller.h"
 #include <iostream>
 #include "command_type.h"
-#include "ui_utils.h"
 #include "vector_2.h"
 #include "game_context.h"
+#include "ui_utils.h"
 #include "player_input_service.h"
 #include "game_ui_service.h"
 
@@ -12,17 +12,18 @@ namespace core
 	namespace controllers
 	{
 		Game::Game() :
-			player_(game::entities::Player("Spieler", 10, 12, 2)),
-			mapController_(core::controllers::Map(this->player_, core::data::Vector2{ 10, 10 }))
+			player_(game::entities::Player("Spieler", 9, 12, 2)),
+			mapController_(core::controllers::Map(this->player_, core::data::Vector2{ 10, 10 }, 5))
 		{ }
 
 		void Game::start()
 		{
-
 			// Main event loop of the game. Follows this order:
 			// 1. Draw map and handle events e.g. player found shovel or etc.
-			// 2. Handle player input.
-			// 3. Check whether player found treasure or died of exhaustion.
+			// 2. Show important info for the player.
+			// 3. Handle player input.
+			// 4. Check whether player found treasure or died of exhaustion.
+
 			while (true)
 			{
 				this->mapController_.drawMap();
@@ -44,19 +45,19 @@ namespace core
 				if (this->playerFoundTreasure_)
 				{
 					core::services::game_ui::showVictoryScreen();
+					core::utils::ui::wait();
 					break;
 				}
 
 				if (this->player_.isExhausted())
 				{
 					core::services::game_ui::showDeathScreen();
+					core::utils::ui::wait();
 					break;
 				}
 
 				core::utils::ui::clearConsole();
 			}
-
-			// TODO: Handle game outcome.
 		}
 	}
 }

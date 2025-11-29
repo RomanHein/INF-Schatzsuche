@@ -31,5 +31,9 @@ namespace core
 		bool Vector2::operator<(const Vector2& other) const noexcept {
 			return std::tie(x, y) < std::tie(other.x, other.y);
 		}
+
+		bool Vector2::operator>(const Vector2& other) const noexcept {
+			return std::tie(x, y) > std::tie(other.x, other.y);
+		}
 	}
 }

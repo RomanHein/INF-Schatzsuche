@@ -4,6 +4,15 @@
 #include "ui_utils.h"
 #include "player.h"
 
+//
+// === Local Functions ===
+//
+
+bool isOutOfMap(const core::data::Vector2& pos, const core::data::Vector2& mapSize)
+{
+	return pos.x < 0 || pos.x >= mapSize.x || pos.y < 0 || pos.y >= mapSize.y;
+}
+
 namespace core
 {
 	namespace services
@@ -64,24 +73,52 @@ namespace core
 			switch (command)
 			{
 			case core::enums::CommandType::MoveUp:
+				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ 0, -1 }, gameContext.mapSize))
+				{
+					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
+					core::utils::ui::wait();
+					break;
+				}
+
 				gameContext.player.move(core::data::Vector2{ 0, -1 });
 				gameContext.player.reduceEnergy();
 
 				break;
 
 			case core::enums::CommandType::MoveDown:
+				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ 0, 1 }, gameContext.mapSize))
+				{
+					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
+					core::utils::ui::wait();
+					break;
+				}
+
 				gameContext.player.move(core::data::Vector2{ 0, 1 });
 				gameContext.player.reduceEnergy();
 
 				break;
 
 			case core::enums::CommandType::MoveLeft:
+				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ -1, 0 }, gameContext.mapSize))
+				{
+					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
+					core::utils::ui::wait();
+					break;
+				}
+
 				gameContext.player.move(core::data::Vector2{ -1, 0 });
 				gameContext.player.reduceEnergy();
 
 				break;
 
 			case core::enums::CommandType::MoveRight:
+				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ 1, 0 }, gameContext.mapSize))
+				{
+					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
+					core::utils::ui::wait();
+					break;
+				}
+
 				gameContext.player.move(core::data::Vector2{ 1, 0 });
 				gameContext.player.reduceEnergy();
 
@@ -92,7 +129,7 @@ namespace core
 				{
 					std::cout << "Du kannst nicht ohne einer vollständigen Karte nach dem Schatz schauen.\n";
 					core::utils::ui::wait();
-					return;
+					break;
 				}
 
 				std::cout << "Der Schatz befindet sich an dem Punkt (" << gameContext.treasurePosition.x << ", " << gameContext.treasurePosition.y << ").\n";
@@ -105,21 +142,21 @@ namespace core
 				{
 					std::cout << "Du kannst nicht ohne einer vollständigen Karte nach dem Schatz graben.\n";
 					core::utils::ui::wait();
-					return;
+					break;
 				}
 
 				if (!gameContext.player.hasItem("Schaufel"))
 				{
 					std::cout << "Du kannst nicht ohne einer Schaufel nach dem Schatz graben.\n";
 					core::utils::ui::wait();
-					return;
+					break;
 				}
 
 				if (gameContext.player.getPosition() != gameContext.treasurePosition)
 				{
 					std::cout << "Du hast nach dem Schatz gegraben aber nichts gefunden...\n";
 					core::utils::ui::wait();
-					return;
+					break;
 				}
 
 				gameContext.playerFoundTreasure = true;

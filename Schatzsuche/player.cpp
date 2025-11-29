@@ -84,6 +84,11 @@ namespace game
 			return this->energy_;
 		}
 
+		int Player::getMaxEnergy() const
+		{
+			return this->maxEnergy_;
+		}
+
 		const std::vector<std::string>& Player::getInventory() const
 		{
 			return this->inventory_;
