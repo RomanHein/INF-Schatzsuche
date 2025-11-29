@@ -9,12 +9,12 @@ namespace core
 			player_(player)
 		{ }
 
-		bool EventManager::trigger(int eventID)
+		bool EventManager::trigger(int eventId)
 		{
-			auto it = events_.find(eventID);
+			auto it = this->events_.find(eventId);
 
 			// Invalid event id.
-			if (it == events_.end())
+			if (it == this->events_.end())
 			{
 				return false;
 			}
@@ -29,6 +29,16 @@ namespace core
 			}
 
 			return false;
+		}
+
+		void EventManager::erase(int eventId)
+		{
+			auto it = this->events_.find(eventId);
+
+			if (it != this->events_.end())
+			{
+				this->events_.erase(it);
+			}
 		}
 
 		int EventManager::createEvent(std::function<void(game::entities::Player& player)> event)

@@ -1,3 +1,7 @@
+// Command Type
+//
+// Player's input gets translated into commands.
+
 #pragma once
 
 namespace core

@@ -1,3 +1,7 @@
+// UI Utils
+//
+// Namespace with UI functions.
+
 #pragma once
 
 namespace core

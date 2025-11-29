@@ -1,11 +1,16 @@
+// Player Input Service
+//
+// Manages the validation and processing of the player's input.
+// Firstly translates the input into an enum and then handles it based on the current game context.
+
 #pragma once
 #include "command_type.h"
 
-namespace game 
+namespace core 
 {
-	namespace entities 
+	namespace data 
 	{ 
-		class Player; 
+		struct GameContext; 
 	}
 }
 
@@ -16,10 +21,10 @@ namespace core
 		namespace player_input
 		{
 			// Asks player to make a move.
-			core::enums::CommandType askPlayerMove();
+			core::enums::CommandType askPlayerInput();
 
 			// Processes a player command.
-			void handlePlayerMove(core::enums::CommandType command, game::entities::Player& player);
+			void handlePlayerInput(core::enums::CommandType command, core::data::GameContext gameContext);
 		};
 	}
 }

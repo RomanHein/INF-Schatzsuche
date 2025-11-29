@@ -6,7 +6,9 @@
 #include "command_type.h"
 #include "ui_utils.h"
 #include "vector_2.h"
+#include "game_context.h"
 #include "player_input_service.h"
+#include "context_ui_service.h"
 
 namespace core
 {
@@ -25,16 +27,35 @@ namespace core
 
 		void Game::start()
 		{
+
+			// Main event loop of the game. Follows this order:
+			// 1. Draw map and handle events e.g. player found shovel or etc.
+			// 2. Handle player input.
+			// 3. Check whether player found treasure or died of exhaustion.
 			while (true)
 			{
 				this->mapController_.drawMap();
 				this->mapController_.handleMapEvent();
 
-				core::enums::CommandType playerCommand = core::services::player_input::askPlayerMove();
-				core::services::player_input::handlePlayerMove(playerCommand, this->player_);
+				core::services::context_ui::showPlayerStatus(this->player_);
+
+				core::enums::CommandType playerCommand = core::services::player_input::askPlayerInput();
+				core::services::player_input::handlePlayerInput(playerCommand, core::data::GameContext{
+					this->player_,
+					this->mapController_.getMapSize(),
+					this->mapController_.getTreasurePosition(),
+					this->playerFoundTreasure_
+				});
+
+				if (this->playerFoundTreasure_ || this->player_.isExhausted())
+				{
+					break;
+				}
 
 				core::utils::ui::clearConsole();
 			}
+
+			// TODO: Handle game outcome.
 		}
 	}
 }

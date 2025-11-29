@@ -1,8 +1,8 @@
 // Event Manager
 //
 // Simple helper component which manages and stores events.
-// Was created to help creating events more easily with optional conditions and so on.
-// Mainly used in Map Controller for making item pickup events.
+// Every component has its own events, stored by an event id. Was created to keep events modular and central.
+// Mainly used in Map Controller to handle item pickup events and more.
 
 #pragma once
 #include <unordered_map>
@@ -29,10 +29,21 @@ namespace core
 			int nextEventID_ = 0;
 
 		public:
+			//
+			// === Constructor ===
+			//
+
 			explicit EventManager(game::entities::Player& player_);
+
+			//
+			// === Public Methods ===
+			//
 
 			// Triggers an event by its event id. Returns true if event finished successfully.
 			bool trigger(int eventId);
+
+			// Removes a registered event by its event id.
+			void erase(int eventId);
 
 			// Creates a simple event and returns its event id.
 			int createEvent(std::function<void(game::entities::Player& player)>);

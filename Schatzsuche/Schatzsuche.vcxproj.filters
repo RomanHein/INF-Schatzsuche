@@ -37,9 +37,6 @@
     <Filter Include="Header Files\core\data">
       <UniqueIdentifier>{f970e8a8-482b-4668-83fc-e89cc45f946d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\core\utility">
-      <UniqueIdentifier>{cb4944dc-3a59-4b0e-a61d-014cb5baeee2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\core\utility">
       <UniqueIdentifier>{88fa6e66-afef-433a-ad03-9b78e45edd66}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="Source Files\core\components">
       <UniqueIdentifier>{b424b9f4-89cb-42fd-a51f-f6eec8a0f599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core\utils">
+      <UniqueIdentifier>{cb4944dc-3a59-4b0e-a61d-014cb5baeee2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +93,9 @@
     <ClCompile Include="vector_2.cpp">
       <Filter>Source Files\core\data</Filter>
     </ClCompile>
+    <ClCompile Include="context_ui_service.cpp">
+      <Filter>Source Files\core\services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_controller.h">
@@ -102,10 +105,10 @@
       <Filter>Header Files\core\controllers</Filter>
     </ClInclude>
     <ClInclude Include="ui_utils.h">
-      <Filter>Header Files\core\utility</Filter>
+      <Filter>Header Files\core\utils</Filter>
     </ClInclude>
     <ClInclude Include="math_utils.h">
-      <Filter>Header Files\core\utility</Filter>
+      <Filter>Header Files\core\utils</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>Header Files\game\entities</Filter>
@@ -124,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="event.h">
       <Filter>Header Files\core\data</Filter>
+    </ClInclude>
+    <ClInclude Include="game_context.h">
+      <Filter>Header Files\core\data</Filter>
+    </ClInclude>
+    <ClInclude Include="context_ui_service.h">
+      <Filter>Header Files\core\services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

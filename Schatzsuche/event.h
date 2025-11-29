@@ -1,3 +1,7 @@
+// Event
+//
+// POD used by Event Manager.
+
 #pragma once
 #include <functional>
 

@@ -78,5 +78,15 @@ namespace game
 		{
 			return this->position_;
 		}
+
+		int Player::getEnergy() const
+		{
+			return this->energy_;
+		}
+
+		const std::vector<std::string>& Player::getInventory() const
+		{
+			return this->inventory_;
+		}
 	}
 }

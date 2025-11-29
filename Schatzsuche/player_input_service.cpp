@@ -1,5 +1,6 @@
 #include "player_input_service.h"
 #include <iostream>
+#include "game_context.h"
 #include "ui_utils.h"
 #include "player.h"
 
@@ -7,7 +8,7 @@ namespace core
 {
 	namespace services
 	{
-		core::enums::CommandType player_input::askPlayerMove()
+		core::enums::CommandType player_input::askPlayerInput()
 		{
 			char input;
 
@@ -51,34 +52,58 @@ namespace core
 			}
 		}
 
-		void player_input::handlePlayerMove(core::enums::CommandType command, game::entities::Player& player)
+		void player_input::handlePlayerInput(core::enums::CommandType command, core::data::GameContext gameContext)
 		{
 			switch (command)
 			{
 			case core::enums::CommandType::MoveUp:
-				player.move(core::data::Vector2{ 0, -1 });
+				gameContext.player.move(core::data::Vector2{ 0, -1 });
+				gameContext.player.reduceEnergy();
+
 				break;
 
 			case core::enums::CommandType::MoveDown:
-				player.move(core::data::Vector2{ 0, 1 });
+				gameContext.player.move(core::data::Vector2{ 0, 1 });
+				gameContext.player.reduceEnergy();
+
 				break;
 
 			case core::enums::CommandType::MoveLeft:
-				player.move(core::data::Vector2{ -1, 0 });
+				gameContext.player.move(core::data::Vector2{ -1, 0 });
+				gameContext.player.reduceEnergy();
+
 				break;
 
 			case core::enums::CommandType::MoveRight:
-				player.move(core::data::Vector2{ 1, 0 });
+				gameContext.player.move(core::data::Vector2{ 1, 0 });
+				gameContext.player.reduceEnergy();
+
 				break;
 
 			case core::enums::CommandType::Dig:
-				if (!player.hasItem("Kartenteil-1") || !player.hasItem("Kartenteil-2"))
+				if (!gameContext.player.hasItem("Kartenteil-1") || !gameContext.player.hasItem("Kartenteil-2"))
 				{
 					std::cout << "Du kannst nicht ohne einer vollständigen Karte nach dem Schatz graben.\n";
+					core::utils::ui::wait();
+					return;
+				}
+
+				if (!gameContext.player.hasItem("Schaufel"))
+				{
+					std::cout << "Du kannst nicht ohne einer Schaufel nach dem Schatz graben.\n";
+					core::utils::ui::wait();
+					return;
+				}
+
+				if (gameContext.player.getPosition() != gameContext.treasurePosition)
+				{
+					std::cout << "Du hast nach dem Schatz gegraben aber nichts gefunden...\n";
 					core::utils::ui::wait();
 
 					return;
 				}
+
+				gameContext.playerFoundTreasure = true;
 
 				break;
 

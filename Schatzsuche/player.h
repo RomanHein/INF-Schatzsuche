@@ -55,9 +55,13 @@ namespace game
 			// Returns true if the player's inventory size is equal to his inventory capacity.
 			bool hasFullInventory() const;
 
+			//
 			// === Getters ===
+			//
 
 			const core::data::Vector2& getPosition() const;
+			int getEnergy() const;
+			const std::vector<std::string>& getInventory() const;
 		};
 	}
 }

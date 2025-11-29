@@ -1,3 +1,7 @@
+// Math Utils
+//
+// Namespace with math functions.
+
 #pragma once
 #include "vector_2.h"
 

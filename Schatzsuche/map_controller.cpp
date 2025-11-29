@@ -14,6 +14,7 @@ namespace core
 		Map::Map(game::entities::Player& player, const core::data::Vector2& mapSize) :
 			player_(player),
 			map_(mapSize.y, std::vector<char>(mapSize.x, '.')),
+			treasurePosition_(core::utils::math::randomPoint(0, mapSize.x - 1, 0, mapSize.y - 1)),
 			eventManager_(player)
 		{ 
 			this->initMapEvents();
@@ -27,8 +28,9 @@ namespace core
 		{
 			while (true)
 			{
-				core::data::Vector2 point = core::utils::math::randomPoint(0, this->map_[0].size() - 1, 0, this->map_.size() - 1);
+				core::data::Vector2 point = core::utils::math::randomPoint(0, static_cast<int>(this->map_[0].size()) - 1, 0, static_cast<int>(this->map_.size() - 1));
 
+				// Check if generated point is already in use.
 				if (this->mapEventIds_.find(point) == this->mapEventIds_.end())
 				{
 					return point;
@@ -38,37 +40,29 @@ namespace core
 
 		void Map::initMapEvents()
 		{
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < 5; i++)
 			{
-				int eventId = this->eventManager_.createConditionalEvent(
-					[](game::entities::Player& player) -> bool {
-						if (player.hasFullInventory())
-						{
-							std::cout << "Dein Inventar ist voll!\n";
-							return false;
-						}
-
-						return true;
-					},
+				int eventId = this->eventManager_.createEvent(
 					[](game::entities::Player& player) -> void {
-						player.addItem("Schaufel");
-						std::cout << "Du hast eine Schaufel gefunden!\n";
+						player.increaseEnergy(3);
+						std::cout << "Du hast eine Beere gefunden (+3 Energie)!\n";
 					}
 				);
 
 				auto point = this->getRandomPoint();
 
 				this->mapEventIds_[point] = eventId;
-				this->map_[point.y][point.x] = 'S';
+				this->map_[point.y][point.x] = 'B';
 			}
+
+
 		}
 
 		//
 		// === Public Methods ===
 		//
 
-		// Draw every character inside map_, if x y is player position, draw player instead of tile.
-		void Map::drawMap()
+		void Map::drawMap() const
 		{
 			for (int y = 0; y < map_.size(); y++)
 			{
@@ -89,7 +83,6 @@ namespace core
 			}
 		}
 
-		// Check what tile the player is standing on and determine an event.
 		void Map::handleMapEvent() 
 		{
 			auto playerPosition = this->player_.getPosition();
@@ -103,10 +96,27 @@ namespace core
 
 			int eventId = it->second;
 
+			// Check if event triggers successfully and delete it.
 			if (this->eventManager_.trigger(eventId))
 			{
 				this->map_[playerPosition.y][playerPosition.x] = '.';
+				this->eventManager_.erase(eventId);
+				this->mapEventIds_.erase(it);
 			}
+		}
+
+		//
+		// === Getters ===
+		//
+		
+		core::data::Vector2 Map::getMapSize() const
+		{
+			return core::data::Vector2{ static_cast<int>(this->map_[0].size()), static_cast<int>(this->map_.size()) };
+		}
+
+		const core::data::Vector2& Map::getTreasurePosition() const
+		{
+			return this->treasurePosition_;
 		}
 	}
 }
