@@ -9,11 +9,11 @@ namespace game
 		// === Constructor ===
 		//
 
-		Player::Player(const std::string& name, int energy, int maxEnergy, int inventoryCapacity) :
+		Player::Player(const std::string& name, const core::data::Vector2& position, int energy, int maxEnergy, int inventoryCapacity) :
 			name_(name),
+			position_(position),
 			energy_(energy),
 			maxEnergy_(maxEnergy),
-			position_(core::data::Vector2{ 0, 0 }),
 			inventoryCapacity_(inventoryCapacity)
 		{ }
 

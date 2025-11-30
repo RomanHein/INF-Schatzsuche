@@ -4,6 +4,7 @@
 #include "vector_2.h"
 #include "game_context.h"
 #include "ui_utils.h"
+#include "math_utils.h"
 #include "player_input_service.h"
 #include "game_ui_service.h"
 
@@ -12,7 +13,7 @@ namespace core
 	namespace controllers
 	{
 		Game::Game() :
-			player_(game::entities::Player("Spieler", 9, 12, 2)),
+			player_(game::entities::Player("Spieler", core::utils::math::randomPoint(0, 9, 0, 9), 9, 12, 2)),
 			mapController_(core::controllers::Map(this->player_, core::data::Vector2{ 10, 10 }, 5))
 		{ }
 

@@ -8,6 +8,7 @@
 // === Local Functions ===
 //
 
+// Returns true if <pos> is outside of the bounds of the game's map.
 bool isOutOfMap(const core::data::Vector2& pos, const core::data::Vector2& mapSize)
 {
 	return pos.x < 0 || pos.x >= mapSize.x || pos.y < 0 || pos.y >= mapSize.y;
@@ -73,6 +74,7 @@ namespace core
 			switch (command)
 			{
 			case core::enums::CommandType::MoveUp:
+			{
 				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ 0, -1 }, gameContext.mapSize))
 				{
 					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
@@ -84,8 +86,10 @@ namespace core
 				gameContext.player.reduceEnergy();
 
 				break;
+			}
 
 			case core::enums::CommandType::MoveDown:
+			{
 				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ 0, 1 }, gameContext.mapSize))
 				{
 					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
@@ -97,8 +101,10 @@ namespace core
 				gameContext.player.reduceEnergy();
 
 				break;
+			}
 
 			case core::enums::CommandType::MoveLeft:
+			{
 				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ -1, 0 }, gameContext.mapSize))
 				{
 					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
@@ -110,8 +116,10 @@ namespace core
 				gameContext.player.reduceEnergy();
 
 				break;
+			}
 
 			case core::enums::CommandType::MoveRight:
+			{
 				if (isOutOfMap(gameContext.player.getPosition() + core::data::Vector2{ 1, 0 }, gameContext.mapSize))
 				{
 					std::cout << "Du kannst das Spielfeld nicht verlassen.\n";
@@ -123,8 +131,10 @@ namespace core
 				gameContext.player.reduceEnergy();
 
 				break;
+			}
 
 			case core::enums::CommandType::ShowMap:
+			{
 				if (!gameContext.player.hasItem("Kartenteil-1") || !gameContext.player.hasItem("Kartenteil-2"))
 				{
 					std::cout << "Du kannst nicht ohne einer vollständigen Karte nach dem Schatz schauen.\n";
@@ -136,8 +146,10 @@ namespace core
 				core::utils::ui::wait();
 
 				break;
+			}
 
 			case core::enums::CommandType::Dig:
+			{
 				if (!gameContext.player.hasItem("Kartenteil-1") || !gameContext.player.hasItem("Kartenteil-2"))
 				{
 					std::cout << "Du kannst nicht ohne einer vollständigen Karte nach dem Schatz graben.\n";
@@ -162,8 +174,10 @@ namespace core
 				gameContext.playerFoundTreasure = true;
 
 				break;
+			}
 
 			case core::enums::CommandType::Help:
+			{
 				std::cout << "<w>, <a>, <s>, <d>\n";
 				std::cout << "Bewegt den Spieler.\n";
 				std::cout << "<r>\n";
@@ -173,6 +187,7 @@ namespace core
 				core::utils::ui::wait();
 
 				break;
+			}
 			}
 		}
 	}

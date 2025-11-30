@@ -25,7 +25,7 @@ namespace game
 			// === Constructor ===
 			//
 
-			explicit Player(const std::string& name, int energy, int maxEnergy, int inventoryCapacity);
+			explicit Player(const std::string& name, const core::data::Vector2& position, int energy, int maxEnergy, int inventoryCapacity);
 
 			//
 			// === Public Methods ===
